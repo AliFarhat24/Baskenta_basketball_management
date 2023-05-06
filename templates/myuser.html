@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  My user
+{% endblock %}
+
+{% block content %}
+<div class="profile">
+  {% if user.profile.usertype == "Player"%}
+  <h1>Player</h1>
+  {% elif user.profile.usertype == "Manager"%}
+  <h1>Manager</h1>
+  {% elif user.profile.usertype == "Coach"%}
+  <h1>Coach</h1>
+  {% endif%}  
+  <h1 class="username">{{user.username}}</h1>
+  <h2 class="name">{{user.get_full_name}}</h2>
+  <h3 class="email">Email: {{user.email}}</h3> 
+  <p class="session">Session started at {{user.last_login}}</p>
+  <a class="linkk" href="{% url 'changepassword' %}">Change password</a>
+  <a class="linkk" href="{% url 'deleteaccount' %}">Delete account</a>
+  <a class="linkk" href="{% url 'Edit_Personal_Info' %}">Edit Personal Info</a>
+  {% if messages %}
+
+  <ul class="messages">
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+{% endblock %}
